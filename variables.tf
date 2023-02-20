@@ -37,7 +37,7 @@ variable "bastion_domain_prefix" {
 
 variable "instance_type" {
   type        = string
-  default     = "t4g.nano"
+  default     = "t4g.micro"
   description = "The instance type to use for the bastion host"
 }
 
