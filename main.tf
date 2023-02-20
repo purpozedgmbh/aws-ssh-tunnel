@@ -32,7 +32,7 @@ resource "aws_instance" "bastion" {
   instance_type          = var.instance_type
   key_name               = var.key_pair_name
   subnet_id              = var.public_subnet_id
-  vpc_security_group_ids = merge(aws_security_group.bastion.id, var.security_group_ids)
+  vpc_security_group_ids = setunion([aws_security_group.bastion.id], var.security_group_ids)
 
   tags = {
     Name = "bastion-host"
