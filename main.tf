@@ -17,11 +17,6 @@ data "aws_ami" "linux" {
   }
 
   filter {
-    name   = "block-device-mapping.volume-type"
-    values = ["gp3"]
-  }
-
-  filter {
     name   = "architecture"
     values = ["arm64"]
   }
@@ -32,11 +27,16 @@ data "aws_key_pair" "cto" {
 }
 
 resource "aws_instance" "bastion" {
+
   ami                    = data.aws_ami.linux.id
   instance_type          = var.instance_type
   key_name               = var.key_pair_name
   subnet_id              = var.public_subnet_id
   vpc_security_group_ids = merge(aws_security_group.bastion.id, var.security_group_ids)
+
+  tags = {
+    Name = "bastion-host"
+  }
 }
 
 resource "aws_security_group" "bastion" {
