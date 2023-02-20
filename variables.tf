@@ -1,3 +1,8 @@
+variable "vpc_id" {
+  type        = string
+  description = "The ID of the VPC with original private resources and where to launch the instance in"
+}
+
 variable "key_pair_name" {
   type        = string
   description = "The name of the key pair to use for the instance"
@@ -9,8 +14,8 @@ variable "public_subnet_id" {
 }
 
 variable "security_group_ids" {
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
   description = "Security group ids if any to use for the instance"
 }
 

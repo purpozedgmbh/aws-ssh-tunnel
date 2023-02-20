@@ -32,7 +32,7 @@ resource "aws_instance" "bastion" {
   instance_type          = var.instance_type
   key_name               = var.key_pair_name
   subnet_id              = var.public_subnet_id
-  vpc_security_group_ids = setunion([aws_security_group.bastion.id], var.security_group_ids)
+  security_groups = setunion([aws_security_group.bastion.id], var.security_group_ids)
 
   tags = {
     Name = "bastion-host"
@@ -40,6 +40,7 @@ resource "aws_instance" "bastion" {
 }
 
 resource "aws_security_group" "bastion" {
+  vpc_id = var.vpc_id
   name_prefix = "bastion-"
 
   ingress {
