@@ -16,6 +16,7 @@ variable "public_subnet_id" {
 variable "public_ip_address" {
   type        = string
   description = "Whether associate a public ip address or not"
+  default     = true
 }
 
 variable "security_group_ids" {
