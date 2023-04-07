@@ -13,6 +13,11 @@ variable "public_subnet_id" {
   description = "The ID of the public subnet to launch the instance in"
 }
 
+variable "public_ip_address" {
+  type        = string
+  description = "Whether associate a public ip address or not"
+}
+
 variable "security_group_ids" {
   type        = list(string)
   default     = []

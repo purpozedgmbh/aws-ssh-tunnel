@@ -28,11 +28,12 @@ data "aws_key_pair" "cto" {
 
 resource "aws_instance" "bastion" {
 
-  ami                    = data.aws_ami.linux.id
-  instance_type          = var.instance_type
-  key_name               = var.key_pair_name
-  subnet_id              = var.public_subnet_id
-  security_groups = setunion([aws_security_group.bastion.id], var.security_group_ids)
+  ami                         = data.aws_ami.linux.id
+  instance_type               = var.instance_type
+  key_name                    = var.key_pair_name
+  associate_public_ip_address = var.public_ip_address
+  subnet_id                   = var.public_subnet_id
+  security_groups             = setunion([aws_security_group.bastion.id], var.security_group_ids)
 
   tags = {
     Name = "bastion-host"
@@ -40,13 +41,13 @@ resource "aws_instance" "bastion" {
 }
 
 resource "aws_security_group" "bastion" {
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
   name_prefix = "bastion-"
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
     cidr_blocks = [
       "0.0.0.0/0"
     ]
